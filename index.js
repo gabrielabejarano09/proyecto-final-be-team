@@ -116,7 +116,7 @@ app.post('/login', validateLoginRequest, async (req, res, next) => {
                 }, 
                 JWT_SECRET, 
                 { 
-                    expiresIn: '1h',
+                    expiresIn: '10s',
                     algorithm: 'HS256'
                 }
             );
