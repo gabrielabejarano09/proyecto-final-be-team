@@ -39,8 +39,8 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Configurar rutas
-app.use('/auth', authRoutes);
+// Configurar rutas - MODIFICADO: ahora las rutas de auth están en la raíz
+app.use('/', authRoutes);
 app.use('/api', protectedRoutes);
 
 // Ruta de healthcheck
