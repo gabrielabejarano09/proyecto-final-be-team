@@ -3,18 +3,20 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const validateLoginRequest = require('../middleware/validation.middleware');
 const { JWT_SECRET } = require('../config/config');
+const { Admin } = require('mongodb');
 
-// Credenciales de ejemplo (en producción esto vendría de una base de datos)
 const VALID_CREDENTIALS = {
     'admin@example.com': {
         password: '12345',
         id: 123,
-        role: 'admin'
+        role: 'admin',
+        name: 'Administrador' 
     },
     'user@example.com': {
         password: '12345',
         id: 124,
-        role: 'user'
+        role: 'user',
+        name: 'Usuario' 
     }
 };
 
@@ -29,7 +31,8 @@ router.post('/login', validateLoginRequest, async (req, res, next) => {
                 { 
                     id: user.id,
                     email: email,
-                    role: user.role
+                    role: user.role,
+                    name: user.name 
                 }, 
                 JWT_SECRET, 
                 { 
@@ -43,7 +46,8 @@ router.post('/login', validateLoginRequest, async (req, res, next) => {
                 message: 'Login exitoso',
                 user: {
                     email,
-                    role: user.role
+                    role: user.role,
+                    name: user.name 
                 }
             });
         }
@@ -56,7 +60,6 @@ router.post('/login', validateLoginRequest, async (req, res, next) => {
     }
 });
 
-// Ruta de status 
 router.get('/status', (req, res) => {
     res.json({
         message: 'Servicio de autenticación funcionando correctamente',
