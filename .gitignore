@@ -4,6 +4,7 @@ package-lock.json
 
 # Archivos de entorno
 .env
+serviceAccountKey.json
 
 # Archivos de log
 npm-debug.log

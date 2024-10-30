@@ -2,19 +2,20 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-
-// Importar configuración
 const config = require('./config/config');
-
-// Importar middlewares
 const errorHandler = require('./middleware/error.middleware');
-
-// Importar rutas
 const authRoutes = require('./routes/auth.routes');
 const protectedRoutes = require('./routes/protected.routes');
-
-// Crear instancia de Express
 const app = express();
+
+// inicializar firebase
+const { initializeFirebase } = require('./config/firebase.config'); 
+const testRoutes = require('./routes/test.routes');
+
+const {db, collections} = initializeFirebase();
+app.locals.db = db;
+app.locals.collections = collections;
+app.use('/test', testRoutes);
 
 // Validar configuración crítica
 if (!config.JWT_SECRET) {
@@ -39,7 +40,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Configurar rutas - MODIFICADO: ahora las rutas de auth están en la raíz
+// Configurar rutas 
 app.use('/', authRoutes);
 app.use('/api', protectedRoutes);
 
