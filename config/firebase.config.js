@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('../serviceAccountKey.json');
+const { refreshToken } = require('firebase-admin/app');
 
 const initializeFirebase = () => {
     try {
@@ -26,7 +27,8 @@ const initializeFirebase = () => {
         const collections = {
             users: db.collection('users'),
             cars: db.collection('cars'),
-            trips: db.collection('trips')
+            trips: db.collection('trips'),
+            refreshTokens: db.collection('refreshTokens')
         }
 
         return {db, collections};

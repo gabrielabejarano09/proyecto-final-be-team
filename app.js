@@ -18,7 +18,7 @@ app.locals.collections = collections;
 app.use('/test', testRoutes);
 
 // Validar configuración crítica
-if (!config.JWT_SECRET) {
+if (!config.JWT_ACCESS_SECRET) {
     console.error('JWT_SECRET is not defined in environment variables');
     process.exit(1);
 }
