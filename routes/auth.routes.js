@@ -33,6 +33,7 @@ router.post('/register', validateRegisterRequest, async (req, res, next) => {
             name,
             password: hashedPassword,
             role: 'user',
+            vehicle: null,
             createdAt: new Date()
         };
 

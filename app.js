@@ -6,6 +6,7 @@ const config = require('./config/config');
 const errorHandler = require('./middleware/error.middleware');
 const authRoutes = require('./routes/auth.routes');
 const protectedRoutes = require('./routes/protected.routes');
+const vehicleRoutes = require('./routes/vehicles.routes');
 const app = express();
 
 // inicializar firebase
@@ -25,7 +26,8 @@ if (!config.JWT_ACCESS_SECRET) {
 
 // Configurar middlewares de seguridad y parseo
 app.use(helmet()); // Seguridad
-app.use(express.json()); // Parseo de JSON
+app.use(express.json({ limit: '10mb' })); // Parseo de JSON con límite aumentado
+app.use(express.urlencoded({ limit: '10mb', extended: true })); // Parseo de URL-encoded con límite aumentado
 app.use(cors({
     origin: config.FRONTEND_URL,
     methods: ['GET', 'POST'],
@@ -43,6 +45,7 @@ app.use(limiter);
 // Configurar rutas 
 app.use('/', authRoutes);
 app.use('/api', protectedRoutes);
+app.use('/api/vehicles', vehicleRoutes); // Cambio en la ruta de vehículos
 
 // Ruta de healthcheck
 app.get('/health', (req, res) => {
@@ -52,14 +55,14 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Middleware de manejo de errores
+app.use(errorHandler);
+
 // Middleware para manejar rutas no encontradas
 app.use((req, res, next) => {
     res.status(404).json({ 
         message: 'Ruta no encontrada' 
     });
 });
-
-// Middleware de manejo de errores
-app.use(errorHandler);
 
 module.exports = app;

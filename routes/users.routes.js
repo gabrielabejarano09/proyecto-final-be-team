@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Crear un nuevo usuario (esta ruta podría ser redundante con el registro)
+// Crear un nuevo usuario 
 router.post('/', async (req, res) => {
     try {
         const { email, name, role } = req.body;
