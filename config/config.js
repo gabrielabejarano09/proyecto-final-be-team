@@ -18,6 +18,7 @@ const config = {
 
 // Validación de configuración crítica
 const requiredConfigs = ['JWT_ACCESS_SECRET', 'FRONTEND_URL'];
+
 for (const config_name of requiredConfigs) {
     if (!config[config_name]) {
         throw new Error(`${config_name} es requerido en las variables de entorno`);
