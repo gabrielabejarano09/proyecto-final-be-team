@@ -30,7 +30,7 @@ app.use(express.json({ limit: '10mb' })); // Parseo de JSON con límite aumentad
 app.use(express.urlencoded({ limit: '10mb', extended: true })); // Parseo de URL-encoded con límite aumentado
 app.use(cors({
     origin: config.FRONTEND_URL,
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST','PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
