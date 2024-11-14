@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth.routes');
 const protectedRoutes = require('./routes/protected.routes');
 const vehicleRoutes = require('./routes/vehicles.routes');
 const app = express();
+const tripsRoutes = require("./routes/trips.routes");
 
 // inicializar firebase
 const { initializeFirebase } = require('./config/firebase.config'); 
@@ -46,6 +47,7 @@ app.use(limiter);
 app.use('/', authRoutes);
 app.use('/api', protectedRoutes);
 app.use('/api/vehicles', vehicleRoutes); // Cambio en la ruta de vehículos
+app.use("/api/trips", tripsRoutes);
 
 // Ruta de healthcheck
 app.get('/health', (req, res) => {
