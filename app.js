@@ -7,6 +7,7 @@ const errorHandler = require('./middleware/error.middleware');
 const authRoutes = require('./routes/auth.routes');
 const protectedRoutes = require('./routes/protected.routes');
 const vehicleRoutes = require('./routes/vehicles.routes');
+const userRoutes = require('./routes/users.routes');
 const app = express();
 
 // inicializar firebase
@@ -45,6 +46,7 @@ app.use(limiter);
 // Configurar rutas 
 app.use('/', authRoutes);
 app.use('/api', protectedRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/vehicles', vehicleRoutes); // Cambio en la ruta de vehículos
 
 // Ruta de healthcheck
