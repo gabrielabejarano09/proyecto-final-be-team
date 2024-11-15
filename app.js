@@ -7,6 +7,7 @@ const errorHandler = require('./middleware/error.middleware');
 const authRoutes = require('./routes/auth.routes');
 const protectedRoutes = require('./routes/protected.routes');
 const vehicleRoutes = require('./routes/vehicles.routes');
+const userRoutes = require('./routes/users.routes');
 const app = express();
 const tripsRoutes = require("./routes/trips.routes");
 
@@ -31,7 +32,7 @@ app.use(express.json({ limit: '10mb' })); // Parseo de JSON con límite aumentad
 app.use(express.urlencoded({ limit: '10mb', extended: true })); // Parseo de URL-encoded con límite aumentado
 app.use(cors({
     origin: config.FRONTEND_URL,
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST','PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
@@ -46,6 +47,7 @@ app.use(limiter);
 // Configurar rutas 
 app.use('/', authRoutes);
 app.use('/api', protectedRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/vehicles', vehicleRoutes); // Cambio en la ruta de vehículos
 app.use("/api/trips", tripsRoutes);
 
